@@ -7,19 +7,51 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            background: linear-gradient(to right, #74ebd5, #acb6e5);
             text-align: center;
-            margin: 50px;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: rgba(44, 62, 80, 0.9);
+            padding: 20px;
+            color: white;
         }
         h1 {
-            color: #2c3e50;
+            margin: 0;
+            font-size: 2.5em;
         }
-        img {
-            width: 150px;
-            height: 150px;
+        img.profile {
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
             margin: 20px 0;
             object-fit: cover;
+            border: 5px solid #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        section {
+            background-color: #ffffffcc;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 12px;
+            max-width: 600px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #2c3e50;
+        }
+        ul.hobbies {
+            list-style-type: none;
+            padding: 0;
+        }
+        ul.hobbies li {
+            background: #007acc;
+            color: white;
+            margin: 8px;
+            padding: 10px;
+            border-radius: 8px;
+            display: inline-block;
         }
         a {
             color: #007acc;
@@ -28,20 +60,60 @@
         a:hover {
             text-decoration: underline;
         }
+        .social-icons a {
+            margin: 0 10px;
+            display: inline-block;
+        }
+        .social-icons img {
+            width: 32px;
+            height: 32px;
+        }
+        footer {
+            margin: 30px 0;
+            color: #555;
+        }
     </style>
 </head>
 <body>
-    <h1>Suwattana Yuman</h1>
-    <p>This is the member page for Suwattana Yuman.</p>
+    <header>
+        <h1>Suwattana Yuman</h1>
+        <p>Welcome to my profile page</p>
+    </header>
 
-    <!-- ใช้ไฟล์ Tunny.jpg จากโฟลเดอร์ images เป็นโปรไฟล์ -->
-    <img src="images/profile.jpg" alt="Suwattana Yuman">
+    <section>
+        <img class="profile" src="images/profile.jpg" alt="suwattana">
+        <h2>About Me</h2>
+        <p>สวัสดีครับ ผมชื่อ Suwattana Yuman ตอนนี้กำลังเรียนอยู่ที่ ... สนใจด้าน Web Development, AI และ IoT</p>
+    </section>
 
-    <h2>About Me</h2>
-    <p>สวัสดีครับ ผมชื่อ Suwattana Yuman ตอนนี้กำลังเรียนอยู่ที่ ... สนใจด้าน ...</p>
+    <section>
+        <h2>Hobbies</h2>
+        <ul class="hobbies">
+            <li>📚 Reading</li>
+            <li>🎮 Gaming</li>
+            <li>🎵 Listening to Music</li>
+            <li>🚴‍♂️ Cycling</li>
+        </ul>
+    </section>
+    
+    <section>
+         <h2>University</h2>
+         <img class="profile" src="images/university.jpg" alt="My University" style="width:150px;height:150px;border-radius:12px;margin:10px 0;object-fit:cover;">
+         <p>ปัจจุบันกำลังศึกษาอยู่ที่ <strong>มหาวิทยาลัยกรุงเทพ</strong> สาขาเทคโนโลยีสารสนเทศ</p>
+    </section>
 
-    <h2>Contact</h2>
-    <p>📧 Email: <a href="mailto:example@email.com">example@email.com</a></p>
-    <p>🌐 GitHub: <a href="https://github.com/username" target="_blank">github.com/username</a></p>
+    <section>
+        <h2>Contact</h2>
+        <p>📧 Email: <a href="mailto:example@email.com">example@email.com</a></p>
+        <p>🌐 GitHub: <a href="https://github.com/username" target="_blank">github.com/username</a></p>
+        <div class="social-icons">
+            <a href="https://facebook.com/username" target="_blank"><img src="images/facebook.png.jpg" alt="Facebook"></a>
+            <a href="https://instagram.com/username" target="_blank"><img src="images/instagram.png.jpg" alt="Instagram"></a>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 Suwattana Yuman. All Rights Reserved.</p>
+    </footer>
 </body>
 </html>
