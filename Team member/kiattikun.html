@@ -124,16 +124,17 @@
     document.addEventListener("mousemove", (e) => {
       const x = (e.clientX / window.innerWidth) * 20;
       const y = (e.clientY / window.innerHeight) * 20;
-      document.body.style.backgroundPosition = ${50 - x}% ${50 - y}%;
+      document.body.style.backgroundPosition = `${50 - x}% ${50 - y}%`;
 
       const card = document.querySelector('.profile-card');
       const rotateX = y - 10;
       const rotateY = x - 10;
-      card.style.transform = scale(1) rotateX(${rotateX}deg) rotateY(${rotateY}deg);
+      card.style.transform = `scale(1) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
     });
 
     document.querySelector('.profile-card').addEventListener('mouseleave', () => {
-      document.querySelector('.profile-card').style.transform = 'scale(1) rotateX(0deg) rotateY(0deg)';
+      document.querySelector('.profile-card').style.transform =
+        'scale(1) rotateX(0deg) rotateY(0deg)';
     });
 
     // 🎆 Concert Light Effect (แทน Snow)
@@ -143,7 +144,6 @@
     let height = canvas.height = window.innerHeight;
 
     const beams = [];
-
     for (let i = 0; i < 100; i++) {
       beams.push({
         x: Math.random() * width,
@@ -152,7 +152,7 @@
         angle: Math.random() * Math.PI * 2,
         speed: Math.random() * 1.5 + 0.5,
         width: Math.random() * 2 + 1,
-        color: hsla(${Math.random() * 360}, 100%, 70%, 0.25)
+        color: `hsla(${Math.random() * 360}, 100%, 70%, 0.25)`
       });
     }
 
@@ -176,7 +176,7 @@
           b.y = height + Math.random() * 100;
           b.x = Math.random() * width;
           b.angle = Math.random() * Math.PI * 2;
-          b.color = hsla(${Math.random() * 360}, 100%, 70%, 0.25);
+          b.color = `hsla(${Math.random() * 360}, 100%, 70%, 0.25)`;
         }
       });
     }
@@ -185,7 +185,6 @@
       drawBeams();
       requestAnimationFrame(animateBeams);
     }
-
     animateBeams();
 
     window.addEventListener('resize', () => {
