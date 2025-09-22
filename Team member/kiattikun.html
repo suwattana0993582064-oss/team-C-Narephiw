@@ -13,7 +13,7 @@
     }
 
     body {
-      background: url('../oasis.jpg') no-repeat center center; /* เปลี่ยนจาก black เป็นภาพ oasis.jpg */
+      background: url('./oasis.jpg') no-repeat center center;
       background-size: cover;
       background-attachment: fixed;
       display: flex;
@@ -56,36 +56,17 @@
       }
     }
 
-    h1 {
-      color: #2c3e50;
-      margin-top: 0;
-    }
-
-    img {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      margin: 20px 0;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-      object-fit: cover;
-    }
-
-    a {
-      color: #007acc;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
+    h1 { color: #2c3e50; margin-top: 0; }
+    img { width: 150px; height:150px; border-radius:50%; margin:20px 0; object-fit:cover; box-shadow:0 8px 20px rgba(0,0,0,0.2); }
+    a { color:#007acc; text-decoration:none; font-weight:bold; }
+    a:hover { text-decoration:underline; }
 
     #music-control {
       position: absolute;
       top: 20px;
       right: 20px;
       z-index: 2;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0,0,0,0.5);
       color: white;
       padding: 10px 15px;
       border-radius: 10px;
@@ -96,7 +77,7 @@
 </head>
 <body>
 
-  <canvas id="fire-beams"></canvas>
+  <canvas id="light-beams"></canvas>
 
   <div class="profile-card">
     <h1>Kiattikun Intararujikun</h1>
@@ -109,10 +90,7 @@
     <p>🌐 GitHub: <a href="https://github.com/backham6859-dev/greenday" target="_blank">github.com/backham6859-dev/greenday</a></p>
   </div>
 
-  <!-- ปุ่ม Play/Pause เพลง -->
   <div id="music-control">▶️ Play Music</div>
-
-  <!-- เพลง -->
   <audio id="music" loop>
     <source src="https://cdn.jsdelivr.net/gh/Thanpisittha/music/SmellsLikeTeenSpirit.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
@@ -122,7 +100,6 @@
     // Music Control
     const music = document.getElementById('music');
     const btn = document.getElementById('music-control');
-
     btn.addEventListener('click', () => {
       if (music.paused) {
         music.play();
@@ -133,75 +110,81 @@
       }
     });
 
-    // Fire Beam Effect
-    const canvas = document.getElementById('fire-beams');
+    // Light Beams Effect
+    const canvas = document.getElementById('light-beams');
     const ctx = canvas.getContext('2d');
     let width = canvas.width = window.innerWidth;
     let height = canvas.height = window.innerHeight;
 
     const beams = [];
-    const colors = ['#ff0040', '#ffcc00', '#00ffff', '#ff00ff', '#00ff00', '#ff6600'];
 
-    function createBeam() {
+    // สร้างลำแสงใหม่จากด้านบน
+    function createLightBeam() {
       const x = Math.random() * width;
-      const widthBeam = Math.random() * 8 + 4;
-      const heightBeam = Math.random() * 200 + 300;
-      const color = colors[Math.floor(Math.random() * colors.length)];
+      const beamWidth = Math.random() * 100 + 50; // ความกว้างของเส้น
+      const length = height; // ให้ยาวเต็มจอ
+      const color = `rgba(${Math.floor(Math.random()*255)}, ${Math.floor(Math.random()*255)}, ${Math.floor(Math.random()*255)}, 0.2)`; 
       beams.push({
         x: x,
-        y: height,
-        width: widthBeam,
-        height: heightBeam,
-        speed: Math.random() * 6 + 4,
-        alpha: 1,
-        color: color
+        width: beamWidth,
+        length: length,
+        alpha: 0,
+        fadeIn: true,
+        fadeSpeed: 0.02 + Math.random() * 0.03,
+        hold: Math.random() * 30 + 20 // ค้างอยู่สักครู่
       });
     }
 
-    function drawBeams() {
-      ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
-      ctx.fillRect(0, 0, width, height);
+    function drawLightBeams() {
+      ctx.clearRect(0, 0, width, height);
 
-      for (let i = 0; i < beams.length; i++) {
-        const b = beams[i];
-        ctx.beginPath();
-        const gradient = ctx.createLinearGradient(b.x, b.y, b.x, b.y - b.height);
-        gradient.addColorStop(0, `${b.color}AA`);
-        gradient.addColorStop(1, `${b.color}00`);
+      beams.forEach((b, i) => {
+        // fade in
+        if (b.fadeIn) {
+          b.alpha += b.fadeSpeed;
+          if (b.alpha >= 1) {
+            b.alpha = 1;
+            b.fadeIn = false;
+          }
+        } else if (b.hold > 0) {
+          b.hold--;
+        } else {
+          // fade out
+          b.alpha -= b.fadeSpeed;
+        }
+
+        if (b.alpha <= 0) {
+          beams.splice(i, 1);
+          return;
+        }
+
+        // วาดแสง
+        const gradient = ctx.createLinearGradient(b.x, 0, b.x + b.width, 0);
+        gradient.addColorStop(0, 'rgba(255,255,255,0)');
+        gradient.addColorStop(0.5, `rgba(255,255,255,${b.alpha * 0.6})`);
+        gradient.addColorStop(1, 'rgba(255,255,255,0)');
+        
         ctx.fillStyle = gradient;
         ctx.globalAlpha = b.alpha;
-        ctx.shadowColor = b.color;
-        ctx.shadowBlur = 20;
-        ctx.fillRect(b.x, b.y - b.height, b.width, b.height);
-
-        // Update
-        b.y -= b.speed;
-        b.alpha -= 0.01;
-
-        if (b.alpha <= 0 || b.y + b.height < 0) {
-          beams.splice(i, 1);
-          i--;
-        }
-      }
+        ctx.fillRect(b.x, 0, b.width, b.length);
+      });
 
       ctx.globalAlpha = 1;
-      ctx.shadowBlur = 0;
-
-      requestAnimationFrame(drawBeams);
+      requestAnimationFrame(drawLightBeams);
     }
 
+    // สร้างลำแสงทุกช่วงเวลา
     setInterval(() => {
-      for (let i = 0; i < 10; i++) {
-        createBeam();
-      }
-    }, 300);
+      createLightBeam();
+    }, 800); // ทุก 0.8 วินาที
 
-    drawBeams();
+    drawLightBeams();
 
     window.addEventListener('resize', () => {
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
     });
   </script>
+
 </body>
 </html>
