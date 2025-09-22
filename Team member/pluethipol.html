@@ -1,47 +1,84 @@
 <!DOCTYPE html>
-<html>
+<html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suwattana Yuman</title>
-    <meta name="description" content="Personal profile page for Suwattana Yuman, sharing bio and contact details.">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            text-align: center;
-            margin: 50px;
-        }
-        h1 {
-            color: #2c3e50;
-        }
-        img {
-            width: 150px;
-            max-width: 100%;
-            border-radius: 50%;
-            margin: 20px 0;
-        }
-        a {
-            color: #007acc;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Profile - Pluethipol Yunghom</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #a8e063, #56ab2f);
+      color: #333;
+      text-align: center;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: #ffffffdd;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+
+    h1 {
+      color: #2e7d32;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      color: #388e3c;
+      margin-top: 30px;
+    }
+
+    img {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 20px 0;
+      border: 4px solid #66bb6a;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .contact a {
+      display: inline-block;
+      margin: 8px;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 30px;
+      background: #66bb6a;
+      color: white;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .contact a:hover {
+      background: #388e3c;
+    }
+  </style>
 </head>
 <body>
-    <h1>Suwattana Yuman</h1>
-    <p>This is the member page for Suwattana Yuman.</p>
-    
-    <!-- เปลี่ยนเป็นรูป 223344.jpg -->
+  <div class="container">
+    <h1>pluethipol yunghom</h1>
+    <p>This is the member page for pluethipol yunghom.</p>
+
+    <!-- ใส่รูปที่ชื่อไฟล์ 223344.jpg -->
     <img src="223344.jpg" alt="Profile Picture">
 
     <h2>About Me</h2>
     <p>สวัสดีครับ ผมชื่อ pluethipol yunghom ตอนนี้กำลังเรียนอยู่ที่มหาวิทยาลัย... สนใจด้านเทคโนโลยีสารสนเทศ และการพัฒนาเว็บไซต์</p>
 
     <h2>Contact</h2>
-    <p>📧 Email: <a href="mailto:example@email.com">example@email.com</a></p>
-    <p>🌐 GitHub: <a href="https://github.com/username" target="_blank">github.com/username</a></p>
+    <div class="contact">
+      <a href="mailto:example@email.com">📧 Email</a>
+      <a href="https://github.com/username" target="_blank">💻 GitHub</a>
+    </div>
+  </div>
 </body>
 </html>
