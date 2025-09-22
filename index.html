@@ -9,7 +9,9 @@
 
         body {
             font-family: 'Orbitron', sans-serif;
-            background: radial-gradient(circle at center, #0f2027, #203a43, #2c5364);
+            background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #0f2027);
+            background-size: 400% 400%;
+            animation: gradientMove 15s ease infinite;
             margin: 0;
             padding: 40px 20px;
             text-align: center;
@@ -18,20 +20,47 @@
             position: relative;
         }
 
-        /* 🔹 พื้นหลังดวงดาว */
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* 🔹 พื้นหลังดวงดาว (เลื่อนขึ้น) */
         body::before {
             content: "";
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
             background: url('https://www.transparenttextures.com/patterns/stardust.png');
             opacity: 0.25;
-            animation: stars 20s linear infinite;
-            z-index: -1;
+            animation: stars 25s linear infinite;
+            z-index: -2;
         }
 
         @keyframes stars {
             from { transform: translateY(0); }
-            to { transform: translateY(-300px); }
+            to { transform: translateY(-400px); }
+        }
+
+        /* 🔹 ดวงดาวกระพริบ */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(2px 2px at 20% 30%, #fff, transparent),
+                        radial-gradient(1.5px 1.5px at 70% 80%, #fff, transparent),
+                        radial-gradient(2.5px 2.5px at 50% 60%, #fff, transparent),
+                        radial-gradient(1.8px 1.8px at 85% 20%, #fff, transparent),
+                        radial-gradient(2.2px 2.2px at 10% 75%, #fff, transparent);
+            background-repeat: no-repeat;
+            animation: twinkle 4s infinite alternate ease-in-out;
+            z-index: -1;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.2; }
+            50% { opacity: 1; }
+            100% { opacity: 0.3; }
         }
 
         h1 {
