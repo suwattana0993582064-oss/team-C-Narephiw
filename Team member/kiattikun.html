@@ -1,150 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kiattikun Intararujikun</title>
-<style>
-html, body { height:100%; margin:0; overflow:hidden; font-family:Arial,sans-serif; }
-body {
-    background: url('../images/oasis.jpg') no-repeat center center;
-    background-size: cover;
-    background-attachment: fixed;
-    display: flex; justify-content:center; align-items:center;
-    position: relative;
-}
-canvas { position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; }
-.profile-card {
-    position: relative; z-index:1;
-    background-color: rgba(255,255,255,0.4);
-    backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-    padding:30px; border-radius:20px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-    max-width:90%; width:400px; text-align:center;
-    opacity:0; transform:scale(0.9) rotateX(0deg) rotateY(0deg);
-    animation: fadeInScale 0.8s ease-out forwards; transition: transform 0.1s ease-out;
-}
-@keyframes fadeInScale { to { opacity:1; transform:scale(1) rotateX(0deg) rotateY(0deg); } }
-h1 { color:#2c3e50; margin-top:0; }
-img { width:150px; border-radius:50%; margin:20px 0; box-shadow:0 8px 20px rgba(0,0,0,0.2); object-fit:cover; height:150px; }
-a { color:#007acc; text-decoration:none; font-weight:bold; }
-a:hover { text-decoration:underline; }
-#music-control {
-    position:absolute; top:20px; right:20px; z-index:2;
-    background:rgba(0,0,0,0.5); color:white; padding:10px 15px;
-    border-radius:10px; cursor:pointer; font-weight:bold;
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kiattikun Intararujikun</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: black; /* เปลี่ยนพื้นหลังเป็นสีดำ */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .profile-card {
+      position: relative;
+      z-index: 1;
+      background-color: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+      max-width: 90%;
+      width: 400px;
+      text-align: center;
+      opacity: 0;
+      transform: scale(0.9);
+      animation: fadeInScale 0.8s ease-out forwards;
+    }
+
+    @keyframes fadeInScale {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    h1 {
+      color: #2c3e50;
+      margin-top: 0;
+    }
+
+    img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      margin: 20px 0;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      object-fit: cover;
+    }
+
+    a {
+      color: #007acc;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    #music-control {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 2;
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      padding: 10px 15px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-<canvas id="fireworks"></canvas>
 
-<div class="profile-card">
+  <canvas id="fire-beams"></canvas>
+
+  <div class="profile-card">
     <h1>Kiattikun Intararujikun</h1>
-    <p>This is the member page for kiattikun Intararujikun.</p>
+    <p>This is the member page for Kiattikun Intararujikun.</p>
     <img src="../images/ba971d2f-a198-4280-bfea-f1ddadc551fd.jpg" alt="Profile Picture">
     <h2>About Me</h2>
-    <p>สวัสดีครับ ผมชื่อ kiattikun Intararujikun ตอนนี้กำลังเรียนอยู่ที่ ... สนใจด้าน ...</p>
+    <p>สวัสดีครับ ผมชื่อ Kiattikun Intararujikun ตอนนี้กำลังเรียนอยู่ที่ ... สนใจด้าน ...</p>
     <h2>Contact</h2>
     <p>📧 Email: <a href="mailto:folkkung07@gmail.com">folkkung07@gmail.com</a></p>
-    <p>🌐 GitHub: <a href="https://github.com/Thanpisittha/NewX" target="_blank">github.com/Thanpisittha</a></p>
-</div>
+    <p>🌐 GitHub: <a href="https://github.com/backham6859-dev/greenday" target="_blank">github.com/backham6859-dev/greenday</a></p>
+  </div>
 
-<!-- ปุ่ม Play/Pause เพลง -->
-<div id="music-control">▶️ Play Music</div>
+  <!-- ปุ่ม Play/Pause เพลง -->
+  <div id="music-control">▶️ Play Music</div>
 
-<!-- แท็ก Audio สำหรับเพลง Nirvana -->
-<audio id="music" loop>
+  <!-- เพลง -->
+  <audio id="music" loop>
     <source src="https://cdn.jsdelivr.net/gh/Thanpisittha/music/SmellsLikeTeenSpirit.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
-</audio>
+  </audio>
 
-<script>
-// Music Control
-const music = document.getElementById('music');
-const btn = document.getElementById('music-control');
+  <script>
+    // Music Control
+    const music = document.getElementById('music');
+    const btn = document.getElementById('music-control');
 
-btn.addEventListener('click', () => {
-    if(music.paused){
+    btn.addEventListener('click', () => {
+      if (music.paused) {
         music.play();
         btn.textContent = "⏸️ Pause Music";
-    } else {
+      } else {
         music.pause();
         btn.textContent = "▶️ Play Music";
+      }
+    });
+
+    // Fire Beam Effect
+    const canvas = document.getElementById('fire-beams');
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    const beams = [];
+    const colors = ['#ff0040', '#ffcc00', '#00ffff', '#ff00ff', '#00ff00', '#ff6600'];
+
+    function createBeam() {
+      const x = Math.random() * width;
+      const widthBeam = Math.random() * 8 + 4;
+      const heightBeam = Math.random() * 200 + 300;
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      beams.push({
+        x: x,
+        y: height,
+        width: widthBeam,
+        height: heightBeam,
+        speed: Math.random() * 6 + 4,
+        alpha: 1,
+        color: color
+      });
     }
-});
 
-// Fireworks Effect
-const canvas = document.getElementById('fireworks');
-const ctx = canvas.getContext('2d');
-let width = canvas.width = window.innerWidth;
-let height = canvas.height = window.innerHeight;
+    function drawBeams() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
+      ctx.fillRect(0, 0, width, height);
 
-const particles = [];
-
-function createFirework(x, y) {
-    const numParticles = 100;
-    const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
-    for (let i = 0; i < numParticles; i++) {
-        particles.push({
-            x: x,
-            y: y,
-            radius: Math.random() * 3 + 2,
-            color: colors[Math.floor(Math.random() * colors.length)],
-            speedX: Math.random() * 4 - 2, // ความเร็วในแนว X
-            speedY: Math.random() * 4 - 2, // ความเร็วในแนว Y
-            alpha: 1,
-            decay: Math.random() * 0.02 + 0.02 // การลดลงของความโปร่งแสง
-        });
-    }
-}
-
-function drawFireworks() {
-    ctx.clearRect(0, 0, width, height);
-
-    // วาดพลุ (ปีกของพลุ)
-    for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
-
+      for (let i = 0; i < beams.length; i++) {
+        const b = beams[i];
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
-        ctx.globalAlpha = p.alpha;
-        ctx.fill();
+        const gradient = ctx.createLinearGradient(b.x, b.y, b.x, b.y - b.height);
+        gradient.addColorStop(0, `${b.color}AA`);
+        gradient.addColorStop(1, `${b.color}00`);
+        ctx.fillStyle = gradient;
+        ctx.globalAlpha = b.alpha;
+        ctx.shadowColor = b.color;
+        ctx.shadowBlur = 20;
+        ctx.fillRect(b.x, b.y - b.height, b.width, b.height);
 
-        // เคลื่อนที่ของพลุ
-        p.x += p.speedX;
-        p.y += p.speedY;
+        // Update
+        b.y -= b.speed;
+        b.alpha -= 0.01;
 
-        // ลดความโปร่งแสง
-        p.alpha -= p.decay;
-
-        // ถ้าความโปร่งแสงหมด พลุจะหายไป
-        if (p.alpha <= 0) {
-            particles.splice(i, 1);
-            i--;
+        if (b.alpha <= 0 || b.y + b.height < 0) {
+          beams.splice(i, 1);
+          i--;
         }
+      }
+
+      ctx.globalAlpha = 1;
+      ctx.shadowBlur = 0;
+
+      requestAnimationFrame(drawBeams);
     }
-}
 
-function animateFireworks() {
-    drawFireworks();
-    requestAnimationFrame(animateFireworks);
-}
+    setInterval(() => {
+      for (let i = 0; i < 10; i++) {
+        createBeam();
+      }
+    }, 300);
 
-// เริ่มต้นพลุในทุกๆ 2 วินาที
-setInterval(() => {
-    const x = Math.random() * width;
-    const y = Math.random() * height;
-    createFirework(x, y);
-}, 2000);
+    drawBeams();
 
-animateFireworks();
-
-window.addEventListener('resize', () => {
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
-});
-</script>
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+  </script>
 </body>
 </html>
