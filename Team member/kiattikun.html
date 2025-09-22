@@ -119,7 +119,7 @@
       }
     });
 
-    // 🎇 Fireworks Effect (สว่างน้อยลง)
+    // 🎇 Fireworks Effect (โปร่งแสง 90%)
     const canvas = document.getElementById('snow');
     const ctx = canvas.getContext('2d');
     let width = canvas.width = window.innerWidth;
@@ -132,7 +132,7 @@
         this.y = height;
         this.targetY = Math.random() * height * 0.5 + height * 0.2;
         this.speed = 3 + Math.random() * 3;
-        this.color = `hsl(${Math.random() * 360}, 100%, 40%)`; // ลดความสว่างลง
+        this.color = `hsl(${Math.random() * 360}, 100%, 40%)`;
         this.exploded = false;
         this.particles = [];
       }
@@ -147,7 +147,7 @@
       }
       explode() {
         this.exploded = true;
-        const count = 30 + Math.random() * 40; // ลดจำนวนอนุภาค
+        const count = 20 + Math.random() * 30;
         for (let i = 0; i < count; i++) {
           this.particles.push(new Particle(this.x, this.y, this.color));
         }
@@ -157,7 +157,9 @@
           ctx.beginPath();
           ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
           ctx.fillStyle = this.color;
+          ctx.globalAlpha = 0.1; // โปร่งแสง 90%
           ctx.fill();
+          ctx.globalAlpha = 1;
         } else {
           this.particles.forEach(p => p.draw(ctx));
         }
@@ -183,13 +185,13 @@
         this.vy += this.gravity;
         this.x += this.vx;
         this.y += this.vy;
-        this.alpha -= 0.012; // เร่งให้จางไวขึ้น
+        this.alpha -= 0.015;
       }
       draw(ctx) {
         ctx.save();
-        ctx.globalAlpha = this.alpha;
+        ctx.globalAlpha = this.alpha * 0.1; // โปร่งแสง 90%
         ctx.beginPath();
-        ctx.arc(this.x, this.y, 1, 0, Math.PI * 2); // อนุภาคเล็กลง
+        ctx.arc(this.x, this.y, 1, 0, Math.PI * 2);
         ctx.fillStyle = this.color;
         ctx.fill();
         ctx.restore();
@@ -198,8 +200,7 @@
 
     let fireworks = [];
     function animate() {
-      // fade เบาบางลงมาก ๆ
-      ctx.fillStyle = "rgba(0,0,0,0.025)";
+      ctx.fillStyle = "rgba(0,0,0,0.02)"; // โปร่งมาก
       ctx.fillRect(0, 0, width, height);
 
       if (Math.random() < 0.03) fireworks.push(new Firework());
@@ -216,7 +217,7 @@
       height = canvas.height = window.innerHeight;
     });
 
-    // 🌌 Parallax & Tilt Card
+    // 🌌 Parallax & Tilt
     document.addEventListener("mousemove", (e) => {
       const x = (e.clientX / window.innerWidth) * 20;
       const y = (e.clientY / window.innerHeight) * 20;
