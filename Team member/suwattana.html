@@ -1,9 +1,240 @@
-<!DOCTYPE html> 
-<html>
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suwattana Yuman</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+
+        body {
+            font-family: 'MedievalSharp', cursive;
+            margin: 0;
+            padding: 0;
+            color: #3b2f2f;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* 🎥 พื้นหลังโถงปราสาท */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('images/castle-hall.jpg') repeat-x;
+            background-size: cover;
+            animation: castleMove 60s linear infinite;
+            z-index: -3;
+        }
+
+        /* 📜 parchment overlay */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('images/parchment-bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            opacity: 0.85;
+            z-index: -2;
+        }
+
+        @keyframes castleMove {
+            from { background-position: 0 0; }
+            to { background-position: -2000px 0; }
+        }
+
+        /* 🔥 คบเพลิง */
+        .torch {
+            position: fixed;
+            top: 20%;
+            width: 50px;
+            height: 120px;
+            background: url('images/torch-base.png') no-repeat center bottom;
+            background-size: contain;
+            z-index: -1;
+        }
+        .torch.left { left: 30px; }
+        .torch.right { right: 30px; }
+
+        /* 🔥 เปลวไฟ */
+        .flame {
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 60px;
+            background: radial-gradient(circle, rgba(255,200,0,0.9) 20%, rgba(255,100,0,0.6) 70%, transparent 100%);
+            border-radius: 50% 50% 50% 50%;
+            animation: flicker 0.2s infinite alternate;
+        }
+
+        @keyframes flicker {
+            0%   { transform: translateX(-50%) scale(1,1.1); opacity: 0.9; }
+            50%  { transform: translateX(-50%) scale(0.9,1.2); opacity: 0.7; }
+            100% { transform: translateX(-50%) scale(1.1,0.9); opacity: 1; }
+        }
+
+        header {
+            background: rgba(139, 69, 19, 0.9);
+            border-bottom: 5px solid #d4af37;
+            padding: 20px;
+            color: #f8f1e1;
+            text-shadow: 2px 2px 5px #000;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 3em;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            font-size: 1.2em;
+            margin-top: 5px;
+        }
+
+        /* 🎭 โปรไฟล์ */
+        .profile {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 20px auto;
+            object-fit: cover;
+            border: 5px solid #d4af37;
+            box-shadow: 0 0 15px rgba(0,0,0,0.6);
+            display: block;
+        }
+
+        section {
+            background: rgba(248, 241, 225, 0.9);
+            margin: 30px auto;
+            padding: 20px;
+            border: 3px solid #d4af37;
+            border-radius: 12px;
+            max-width: 700px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+
+        h2 {
+            color: #8b0000;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #d4af37;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        ul.hobbies {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul.hobbies li {
+            background: #8b0000;
+            color: #f8f1e1;
+            margin: 8px;
+            padding: 10px 15px;
+            border-radius: 8px;
+            display: inline-block;
+            box-shadow: inset 0 0 5px #000;
+        }
+
+        a {
+            color: #8b0000;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #d4af37;
+            text-shadow: 0 0 5px #000;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .social-icons img {
+            width: 50px;
+            height: 50px;
+            border: 2px solid #d4af37;
+            border-radius: 50%;
+            background: #f8f1e1;
+            padding: 5px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .social-icons img:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 10px #d4af37;
+        }
+
+        footer {
+            margin: 30px 0;
+            padding: 15px;
+            background: rgba(139, 69, 19, 0.9);
+            color: #f8f1e1;
+            border-top: 5px solid #d4af37;
+            text-align: center;
+        }
+    </style>
+</head>
 <body>
+    <!-- 🔥 คบเพลิงซ้ายและขวา -->
+    <div class="torch left"><div class="flame"></div></div>
+    <div class="torch right"><div class="flame"></div></div>
 
-<h1>Suwattana Yuman</h1>
-<p>This is the member page for Suwattana Yuman.</p>
+    <header>
+        <h1>⚔️ Suwattana Yuman ⚔️</h1>
+        <p>Welcome to my medieval profile page</p>
+    </header>
 
+    <section>
+        <img class="profile" src="../images/profile.jpg" alt="Suwattana">
+        <h2>About Me</h2>
+        <p>Hallo My Name <strong>Suwattana Yuma</strong> I am Web Development, AI และ IoT</p>
+    </section>
+
+    <section>
+        <h2>Hobbies</h2>
+        <ul class="hobbies">
+            <li>📜 Reading</li>
+            <li>🎮 Gaming</li>
+            <li>🎵 Music</li>
+            <li>🏰 Cycling</li>
+        </ul>
+    </section>
+    
+    <section>
+         <h2>University</h2>
+         <img src="../images/university.jpg" alt="University" style="width:180px;height:180px;border-radius:12px;margin:10px auto;object-fit:cover;border:3px solid #d4af37;display:block;">
+         <p>กำลังศึกษาอยู่ที่ <strong>มหาวิทยาลัยเทคโนโลยีราชมงคลล้านนา</strong> คณะวิศวกรรมศาสตร์ 🏰</p>
+    </section>
+
+    <section>
+        <h2>Contact</h2>
+        <p>📧 Email: <a href="mailto:suwattana0993582064@gmail.com">suwattana0993582064@gmail.com</a></p>
+        <p>⚔️ GitHub: <a href="https://github.com/suwattana0993582064-oss" target="_blank">github.com/suwattana0993582064-oss</a></p>
+        <div class="social-icons">
+            <a href="https://www.facebook.com/bird.wing.96?locale=th_TH" target="_blank"><img src="../images/facebook.png" alt="Facebook"></a>
+            <a href="https://www.instagram.com/txn_sxt/" target="_blank"><img src="../images/instagram.png" alt="Instagram"></a>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 Suwattana Yuman ⚔️ All Rights Reserved</p>
+    </footer>
 </body>
 </html>

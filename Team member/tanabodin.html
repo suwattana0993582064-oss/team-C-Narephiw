@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tanabodin Tanma</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px 50px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        img {
+            width: 150px;
+            border-radius: 50%;
+            margin: 20px 0;
+            border: 4px solid #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        a {
+            color: #007acc;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tanabodin Tanma</h1>
+        <p>This is the member page for Tanabodin Tanma.</p>
+        <img src="../images/547654243_1365374265150042_1734193045995486718_n.jpg" alt="Profile Picture">
+
+        <h2>About Me</h2>
+        <p>สวัสดีครับ ผมชื่อ Tanabodin Tanma ตอนนี้กำลังเรียอยู่ที่ มหาวิทยาลัยเทคโนโลยีราชมงคลล้านนา สนใจด้าน งานวิศวกรรม</p>
+
+        <h2>Contact</h2>
+        <p> Email: <a href="mailto:cakekungkab2555@gmail.com">example@email.com</a></p>
+        <p> GitHub: <a href="https://github.com/dashboard" target="_blank">github.com/username</a></p>
+    </div>
+</body>
+</html>
