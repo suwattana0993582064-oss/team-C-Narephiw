@@ -1,11 +1,107 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thanpisittha Kunalai</title>
+<style>
+html, body { height:100%; margin:0; overflow:hidden; font-family:Arial,sans-serif; }
+body {
+    background: url('../images/264784-qgdt3x-1.n.jpg') no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
+    display: flex; justify-content:center; align-items:center;
+    position: relative;
+}
+canvas { position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; }
+.profile-card {
+    position: relative; z-index:1;
+    background-color: rgba(255,255,255,0.4);
+    backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+    padding:30px; border-radius:20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    max-width:90%; width:400px; text-align:center;
+    opacity:0; transform:scale(0.9) rotateX(0deg) rotateY(0deg);
+    animation: fadeInScale 0.8s ease-out forwards; transition: transform 0.1s ease-out;
+}
+@keyframes fadeInScale { to { opacity:1; transform:scale(1) rotateX(0deg) rotateY(0deg); } }
+h1 { color:#2c3e50; margin-top:0; }
+img { width:150px; border-radius:50%; margin:20px 0; box-shadow:0 8px 20px rgba(0,0,0,0.2); }
+a { color:#007acc; text-decoration:none; font-weight:bold; }
+a:hover { text-decoration:underline; }
+#music-control {
+    position:absolute; top:20px; right:20px; z-index:2;
+    background:rgba(0,0,0,0.5); color:white; padding:10px 15px;
+    border-radius:10px; cursor:pointer; font-weight:bold;
+}
+</style>
+</head>
 <body>
+<canvas id="snow"></canvas>
 
+<div class="profile-card">
+    <h1>Thanpisittha Kunalai</h1>
+    <p>This is the member page for Thanpisittha Kunalai.</p>
+    <img src="../images/528039067_1207679731162467_620906151069854415_n.jpg" alt="Profile Picture">
+    <h2>About Me</h2>
+    <p>สวัสดีครับ ผมชื่อ Thanpisittha Kunalai ตอนนี้กำลังเรียนอยู่ที่ ... สนใจด้าน ...</p>
+    <h2>Contact</h2>
+    <p>📧 Email: <a href="mailto:Thanpisittha13@mail.com">Thanpisittha13@mail.com</a></p>
+    <p>🌐 GitHub: <a href="https://github.com/Thanpisittha/NewX" target="_blank">github.com/Thanpisittha</a></p>
+</div>
 
-<h1>Thanpisittha kunalai</h1>
-<p>This is the member page for Thanpisittha kunalai.</p>
+<!-- ปุ่ม Play/Pause เพลง -->
+<div id="music-control">▶️ Play Music</div>
 
+<!-- แท็ก Audio สำหรับเพลง Nirvana -->
+<audio id="music" loop>
+    <source src="https://cdn.jsdelivr.net/gh/Thanpisittha/music/SmellsLikeTeenSpirit.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
 
+<script>
+const music = document.getElementById('music');
+const btn = document.getElementById('music-control');
+
+btn.addEventListener('click', () => {
+    if(music.paused){
+        music.play();
+        btn.textContent = "⏸️ Pause Music";
+    } else {
+        music.pause();
+        btn.textContent = "▶️ Play Music";
+    }
+});
+
+// Parallax + Tilt Card
+document.addEventListener("mousemove",(e)=>{
+    const x=(e.clientX/window.innerWidth)*20;
+    const y=(e.clientY/window.innerHeight)*20;
+    document.body.style.backgroundPosition=`${50-x}% ${50-y}%`;
+    const card=document.querySelector('.profile-card');
+    const rotateX=y-10;
+    const rotateY=x-10;
+    card.style.transform=`scale(1) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+});
+document.querySelector('.profile-card').addEventListener('mouseleave',()=>{
+    document.querySelector('.profile-card').style.transform='scale(1) rotateX(0deg) rotateY(0deg)';
+});
+
+// Snow Effect Heavy + Melt on Card
+const canvas=document.getElementById('snow');
+const ctx=canvas.getContext('2d');
+let width=canvas.width=window.innerWidth;
+let height=canvas.height=window.innerHeight;
+const numFlakes=300;
+const flakes=[];
+for(let i=0;i<numFlakes;i++){ flakes.push({x:Math.random()*width, y:Math.random()*height, r:Math.random()*5+2, speed:Math.random()*1.5+0.5}); }
+function drawSnow(){ ctx.clearRect(0,0,width,height); ctx.fillStyle="white"; ctx.beginPath();
+for(let i=0;i<numFlakes;i++){ const f=flakes[i]; ctx.moveTo(f.x,f.y); ctx.arc(f.x,f.y,f.r,0,Math.PI*2,true); } ctx.fill(); moveSnow(); }
+function moveSnow(){ for(let i=0;i<numFlakes;i++){ const f=flakes[i]; f.y+=f.speed; const card=document.querySelector('.profile-card'); const rect=card.getBoundingClientRect();
+if(f.y>rect.top && f.y<rect.bottom && f.x>rect.left && f.x<rect.right){ f.y=-10; f.x=Math.random()*width; } if(f.y>height){ flakes[i]={x:Math.random()*width, y:0, r:f.r, speed:f.speed}; } } }
+function animateSnow(){ drawSnow(); requestAnimationFrame(animateSnow); }
+animateSnow();
+window.addEventListener('resize',()=>{ width=canvas.width=window.innerWidth; height=canvas.height=window.innerHeight; });
+</script>
 </body>
 </html>
