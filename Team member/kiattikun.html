@@ -13,9 +13,8 @@
     }
 
     body {
-      background: url('./oasis.jpg') no-repeat center center;
+      background: url('oasis.jpg') no-repeat center center;
       background-size: cover;
-      background-attachment: fixed;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -35,7 +34,7 @@
     .profile-card {
       position: relative;
       z-index: 1;
-      background-color: rgba(255, 255, 255, 0.4);
+      background-color: rgba(255, 255, 255, 0.3);
       backdrop-filter: blur(15px);
       -webkit-backdrop-filter: blur(15px);
       padding: 30px;
@@ -44,29 +43,38 @@
       max-width: 90%;
       width: 400px;
       text-align: center;
-      opacity: 0;
-      transform: scale(0.9);
-      animation: fadeInScale 0.8s ease-out forwards;
+      animation: fadeIn 1s ease-out;
     }
 
-    @keyframes fadeInScale {
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
     }
 
     h1 { color: #2c3e50; margin-top: 0; }
-    img { width: 150px; height:150px; border-radius:50%; margin:20px 0; object-fit:cover; box-shadow:0 8px 20px rgba(0,0,0,0.2); }
-    a { color:#007acc; text-decoration:none; font-weight:bold; }
-    a:hover { text-decoration:underline; }
+    img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      margin: 20px 0;
+      object-fit: cover;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+    a {
+      color: #007acc;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
 
     #music-control {
       position: absolute;
       top: 20px;
       right: 20px;
       z-index: 2;
-      background: rgba(0,0,0,0.5);
+      background: rgba(0, 0, 0, 0.5);
       color: white;
       padding: 10px 15px;
       border-radius: 10px;
@@ -84,20 +92,21 @@
     <p>This is the member page for Kiattikun Intararujikun.</p>
     <img src="../images/ba971d2f-a198-4280-bfea-f1ddadc551fd.jpg" alt="Profile Picture">
     <h2>About Me</h2>
-    <p>สวัสดีครับ ผมชื่อ Kiattikun Intararujikun ตอนนี้กำลังเรียนอยู่ที่ มหาวิทยาลัยราชมงคลล้านนา เชียงใหม่ สนใจด้าน การควบคุมระบบ PLC</p>
+    <p>สวัสดีครับ ผมชื่อ Kiattikun Intararujikun ตอนนี้กำลังเรียนอยู่ที่ ... สนใจด้าน ...</p>
     <h2>Contact</h2>
     <p>📧 Email: <a href="mailto:folkkung07@gmail.com">folkkung07@gmail.com</a></p>
     <p>🌐 GitHub: <a href="https://github.com/backham6859-dev/greenday" target="_blank">github.com/backham6859-dev/greenday</a></p>
   </div>
 
   <div id="music-control">▶️ Play Music</div>
+
   <audio id="music" loop>
     <source src="https://cdn.jsdelivr.net/gh/Thanpisittha/music/SmellsLikeTeenSpirit.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 
   <script>
-    // Music Control
+    // เพลง
     const music = document.getElementById('music');
     const btn = document.getElementById('music-control');
     btn.addEventListener('click', () => {
@@ -110,36 +119,33 @@
       }
     });
 
-    // Light Beams Effect
+    // เอฟเฟกต์ลำแสงจากด้านบน (concert style)
     const canvas = document.getElementById('light-beams');
     const ctx = canvas.getContext('2d');
     let width = canvas.width = window.innerWidth;
     let height = canvas.height = window.innerHeight;
-
     const beams = [];
 
-    // สร้างลำแสงใหม่จากด้านบน
     function createLightBeam() {
       const x = Math.random() * width;
-      const beamWidth = Math.random() * 100 + 50; // ความกว้างของเส้น
-      const length = height; // ให้ยาวเต็มจอ
-      const color = `rgba(${Math.floor(Math.random()*255)}, ${Math.floor(Math.random()*255)}, ${Math.floor(Math.random()*255)}, 0.2)`; 
+      const beamWidth = Math.random() * 50 + 30;
+      const color = `rgba(255,255,255,${Math.random() * 0.2 + 0.05})`;
       beams.push({
-        x: x,
+        x,
         width: beamWidth,
-        length: length,
+        color,
         alpha: 0,
         fadeIn: true,
-        fadeSpeed: 0.02 + Math.random() * 0.03,
-        hold: Math.random() * 30 + 20 // ค้างอยู่สักครู่
+        hold: Math.random() * 30 + 20,
+        fadeSpeed: 0.01 + Math.random() * 0.02
       });
     }
 
-    function drawLightBeams() {
+    function drawBeams() {
       ctx.clearRect(0, 0, width, height);
 
       beams.forEach((b, i) => {
-        // fade in
+        // Fade logic
         if (b.fadeIn) {
           b.alpha += b.fadeSpeed;
           if (b.alpha >= 1) {
@@ -149,7 +155,6 @@
         } else if (b.hold > 0) {
           b.hold--;
         } else {
-          // fade out
           b.alpha -= b.fadeSpeed;
         }
 
@@ -158,33 +163,29 @@
           return;
         }
 
-        // วาดแสง
-        const gradient = ctx.createLinearGradient(b.x, 0, b.x + b.width, 0);
-        gradient.addColorStop(0, 'rgba(255,255,255,0)');
-        gradient.addColorStop(0.5, `rgba(255,255,255,${b.alpha * 0.6})`);
-        gradient.addColorStop(1, 'rgba(255,255,255,0)');
-        
-        ctx.fillStyle = gradient;
         ctx.globalAlpha = b.alpha;
-        ctx.fillRect(b.x, 0, b.width, b.length);
+        const gradient = ctx.createLinearGradient(b.x, 0, b.x + b.width, height);
+        gradient.addColorStop(0, 'rgba(255,255,255,0)');
+        gradient.addColorStop(0.5, b.color);
+        gradient.addColorStop(1, 'rgba(255,255,255,0)');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(b.x, 0, b.width, height);
       });
 
       ctx.globalAlpha = 1;
-      requestAnimationFrame(drawLightBeams);
+      requestAnimationFrame(drawBeams);
     }
 
-    // สร้างลำแสงทุกช่วงเวลา
     setInterval(() => {
-      createLightBeam();
-    }, 800); // ทุก 0.8 วินาที
+      for (let i = 0; i < 2; i++) createLightBeam();
+    }, 500);
 
-    drawLightBeams();
+    drawBeams();
 
     window.addEventListener('resize', () => {
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
     });
   </script>
-
 </body>
 </html>
