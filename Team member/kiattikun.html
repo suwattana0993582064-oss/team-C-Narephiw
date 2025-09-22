@@ -1,87 +1,197 @@
-<script>
-  // Music Control
-  const music = document.getElementById('music');
-  const btn = document.getElementById('music-control');
-  btn.addEventListener('click', () => {
-    if (music.paused) {
-      music.play();
-      btn.textContent = "⏸️ Pause Music";
-    } else {
-      music.pause();
-      btn.textContent = "▶️ Play Music";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kiattikun Intararujikun</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
     }
-  });
+    body {
+      background: url('../images/oasis.jpg') no-repeat center center;
+      background-size: cover;
+      background-attachment: fixed;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .profile-card {
+      position: relative;
+      z-index: 1;
+      background-color: rgba(255,255,255,0.4);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+      max-width: 90%;
+      width: 400px;
+      text-align: center;
+      opacity: 0;
+      transform: scale(0.9) rotateX(0deg) rotateY(0deg);
+      animation: fadeInScale 0.8s ease-out forwards;
+      transition: transform 0.1s ease-out;
+    }
+    @keyframes fadeInScale {
+      to {
+        opacity: 1;
+        transform: scale(1) rotateX(0deg) rotateY(0deg);
+      }
+    }
+    h1 { color: #2c3e50; margin-top: 0; }
+    img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      margin: 20px 0;
+      object-fit: cover;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    a {
+      color: #007acc;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    #music-control {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 2;
+      background: rgba(0,0,0,0.5);
+      color: white;
+      padding: 10px 15px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="snow"></canvas>
 
-  // Parallax + Tilt
-  document.addEventListener("mousemove", (e) => {
-    const x = (e.clientX / window.innerWidth) * 20;
-    const y = (e.clientY / window.innerHeight) * 20;
-    document.body.style.backgroundPosition = `${50 - x}% ${50 - y}%`;
+  <div class="profile-card">
+    <h1>Kiattikun Intararujikun</h1>
+    <p>This is the member page for kiattikun Intararujikun.</p>
+    <img src="../images/ba971d2f-a198-4280-bfea-f1ddadc551fd.jpg" alt="Profile Picture">
+    <h2>About Me</h2>
+    <p>สวัสดีครับ ผมชื่อ kiattikun Intararujikun ตอนนี้กำลังเรียนอยู่ที่ มหาวิทยาลัยราชมงคลล้านนาเชียงใหม่ สนใจด้าน การควบคุมระบบ PLC</p>
+    <h2>Contact</h2>
+    <p>📧 Email: <a href="mailto:folkkung07@gmail.com">folkkung07@gmail.com</a></p>
+    <p>🌐 GitHub: <a href="https://github.com/backham6859-dev/greenday" target="_blank">github.com/backham6859-dev/greenday</a></p>
+  </div>
 
-    const card = document.querySelector('.profile-card');
-    const rotateX = y - 10;
-    const rotateY = x - 10;
-    card.style.transform = `scale(1) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-  });
+  <!-- ปุ่ม Play/Pause เพลง -->
+  <div id="music-control">▶️ Play Music</div>
 
-  document.querySelector('.profile-card').addEventListener('mouseleave', () => {
-    document.querySelector('.profile-card').style.transform = 'scale(1) rotateX(0deg) rotateY(0deg)';
-  });
+  <!-- เพลง -->
+  <audio id="music" loop>
+    <source src="https://cdn.jsdelivr.net/gh/Thanpisittha/music/SmellsLikeTeenSpirit.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
 
-  // 🎆 Concert Light Beam Effect 🎆
-  const canvas = document.getElementById('snow');
-  const ctx = canvas.getContext('2d');
-  let width = canvas.width = window.innerWidth;
-  let height = canvas.height = window.innerHeight;
-
-  const beams = [];
-
-  for (let i = 0; i < 80; i++) {
-    beams.push({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      length: Math.random() * 200 + 100,
-      angle: Math.random() * Math.PI * 2,
-      speed: Math.random() * 2 + 0.5,
-      width: Math.random() * 2 + 1,
-      color: `hsla(${Math.random() * 360}, 100%, 70%, 0.3)`
-    });
-  }
-
-  function drawBeams() {
-    ctx.clearRect(0, 0, width, height);
-    beams.forEach(b => {
-      ctx.save();
-      ctx.translate(b.x, b.y);
-      ctx.rotate(b.angle);
-      ctx.beginPath();
-      ctx.strokeStyle = b.color;
-      ctx.lineWidth = b.width;
-      ctx.moveTo(0, 0);
-      ctx.lineTo(0, -b.length);
-      ctx.stroke();
-      ctx.restore();
-
-      // Move beam
-      b.y -= b.speed;
-      if (b.y + b.length < 0) {
-        b.y = height + Math.random() * 100;
-        b.x = Math.random() * width;
-        b.angle = Math.random() * Math.PI * 2;
-        b.color = `hsla(${Math.random() * 360}, 100%, 70%, 0.3)`;
+  <script>
+    // Music Control
+    const music = document.getElementById('music');
+    const btn = document.getElementById('music-control');
+    btn.addEventListener('click', () => {
+      if (music.paused) {
+        music.play();
+        btn.textContent = "⏸️ Pause Music";
+      } else {
+        music.pause();
+        btn.textContent = "▶️ Play Music";
       }
     });
-  }
 
-  function animateBeams() {
-    drawBeams();
-    requestAnimationFrame(animateBeams);
-  }
+    // Parallax + Tilt
+    document.addEventListener("mousemove", (e) => {
+      const x = (e.clientX / window.innerWidth) * 20;
+      const y = (e.clientY / window.innerHeight) * 20;
+      document.body.style.backgroundPosition = `${50 - x}% ${50 - y}%`;
 
-  animateBeams();
+      const card = document.querySelector('.profile-card');
+      const rotateX = y - 10;
+      const rotateY = x - 10;
+      card.style.transform = `scale(1) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
 
-  window.addEventListener('resize', () => {
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
-  });
-</script>
+    document.querySelector('.profile-card').addEventListener('mouseleave', () => {
+      document.querySelector('.profile-card').style.transform = 'scale(1) rotateX(0deg) rotateY(0deg)';
+    });
+
+    // 🎆 Concert Light Effect (แทน Snow)
+    const canvas = document.getElementById('snow');
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    const beams = [];
+
+    for (let i = 0; i < 100; i++) {
+      beams.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        length: Math.random() * 200 + 100,
+        angle: Math.random() * Math.PI * 2,
+        speed: Math.random() * 1.5 + 0.5,
+        width: Math.random() * 2 + 1,
+        color: `hsla(${Math.random() * 360}, 100%, 70%, 0.25)`
+      });
+    }
+
+    function drawBeams() {
+      ctx.clearRect(0, 0, width, height);
+      beams.forEach(b => {
+        ctx.save();
+        ctx.translate(b.x, b.y);
+        ctx.rotate(b.angle);
+        ctx.beginPath();
+        ctx.strokeStyle = b.color;
+        ctx.lineWidth = b.width;
+        ctx.moveTo(0, 0);
+        ctx.lineTo(0, -b.length);
+        ctx.stroke();
+        ctx.restore();
+
+        // Move beam upward
+        b.y -= b.speed;
+        if (b.y + b.length < 0) {
+          b.y = height + Math.random() * 100;
+          b.x = Math.random() * width;
+          b.angle = Math.random() * Math.PI * 2;
+          b.color = `hsla(${Math.random() * 360}, 100%, 70%, 0.25)`;
+        }
+      });
+    }
+
+    function animateBeams() {
+      drawBeams();
+      requestAnimationFrame(animateBeams);
+    }
+
+    animateBeams();
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+  </script>
+</body>
+</html>
